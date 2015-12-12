@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {RaisedButton} from 'material-ui';
-import Card from "./cards.jsx"
+import Card from "./card.jsx"
 import './css/styles.css'
 export default class Player extends React.Component {
 
@@ -17,12 +17,18 @@ export default class Player extends React.Component {
     let cardView = _.map(playerCards, (card, i) => {
     return <Card data={card} />
   })
-    
+    if(data.dealer){
+      return (
+        <h1>This is a dealer! </h1>
+        )
+    } else {
+
     return (
-       <div className="Player" >
-       <h1>{data.name} current hand is {cardView} </h1>
-       <RaisedButton label = {data.name} onClick = {click}/>
-       </div>
-    );
+         <div className="Player" >
+         <h1>{data.name} current hand is {cardView} </h1>
+         <RaisedButton label = {data.name} onClick = {click}/>
+         </div>
+      );
+    }
   }
 }
