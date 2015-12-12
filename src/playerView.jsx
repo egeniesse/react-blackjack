@@ -15,14 +15,22 @@ export default class Player extends React.Component {
     let click = this.props.click;
     let playerCards = data.cards;
     let cardView = _.map(playerCards, (card, i) => {
-    return <Card data={card} />
-  })
-    
-    return (
-       <div className="Player" >
-       <h1>{data.name} current hand is {cardView} </h1>
-       <RaisedButton label = {data.name} onClick = {click}/>
-       </div>
+      return <Card data={card} />
+    })
+
+    if (data.dealer) {
+      return (
+        <div className="Dealer" >
+         <h1>{data.name} current hand is {cardView} </h1>
+         </div>)
+    } else {
+        return (
+         <div className="Player" >
+         <h1>{data.name} current hand</h1><p>is {cardView} </p>
+         <RaisedButton label = {data.name} onClick = {click}/>
+         </div>
     );
+
+    }
   }
 }
