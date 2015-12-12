@@ -30,7 +30,7 @@ export default class Table extends React.Component {
       target : people
     });
 
-    this._calcValue(index, person)
+    this._calcValue(index, person);
  }
 
  _calcValue (index, person){
@@ -43,7 +43,6 @@ export default class Table extends React.Component {
     this.setState({
       person : playerHand
     });
-    console.log('here!')
   }
 
   _hit(index) {
@@ -54,7 +53,6 @@ export default class Table extends React.Component {
       players : people
     });
     this._calcValue(index)
-    console.log(this.state.players[index].handValue)
  }
 
   _startHand(){
@@ -62,6 +60,7 @@ export default class Table extends React.Component {
 
       _.each(this.state.players, (player, j) => {
         this._deal(j);
+
       });
       this._deal(0, this.state.dealer);
     }
