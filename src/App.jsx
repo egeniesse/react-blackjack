@@ -6,7 +6,7 @@ import './css/styles.css';
 import Player from './counterView.jsx';
 import deckInit from './deck.jsx';
 import _ from 'lodash';
-console.log(deckInit())
+import Card from 'card.jsx';
 export default class Table extends React.Component {
 
 
