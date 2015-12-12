@@ -21,21 +21,49 @@ export default class Table extends React.Component {
     
     };
   }
- _deal(index){
+ _deal(index, person) {
+    let target = person || this.state.players[index];
+    let people = person || this.state.players[index];
     let card = this.state.deck.pop();
+    people.cards.push(card);
+    this.setState({
+      target : people
+    });
+
+    this._calcValue(index, person)
+ }
+
+ _calcValue (index, person){
+    let playerHand = person || this.state.players[index];
+    person = person || this.state.players;
+    let score =_.reduce(playerHand.cards, (memo, card) => {
+      return memo + card.value;
+    }, 0);
+    playerHand.handValue = score;
+    this.setState({
+      person : playerHand
+    });
+    console.log('here!')
+  }
+
+  _hit(index) {
     let people = this.state.players;
+    let card = this.state.deck.pop();
     people[index].cards.push(card);
     this.setState({
       players : people
     });
+    this._calcValue(index)
+    console.log(this.state.players[index].handValue)
  }
+
   _startHand(){
     for(var i = 0; i < 2; i++){
 
-        console.log('ran')
-      _.each(this.state.players, (player, i) => {
-        this._deal(i);
+      _.each(this.state.players, (player, j) => {
+        this._deal(j);
       });
+      this._deal(0, this.state.dealer);
     }
   }
 
@@ -51,14 +79,14 @@ export default class Table extends React.Component {
   render() {
   let dealer = this.state.dealer;  
   let playerView = _.map(this.state.players, (player, i) => {
-    return <Player data={player} click={this._deal.bind(this, i)} />
+    return <Player data={player} click={this._hit.bind(this, i)} />
   })
     return (
 
        <div className="Table" >
-       <Player data={dealer} label ="Dealer" click = '' />
+       <Player data={dealer} label ="Dealer" />
 
-       <RaisedButton label = 'Start Game' onClick = {() => this._startHand()} />
+       <RaisedButton label = 'Start Hand' onClick = {() => this._startHand()} />
        <RaisedButton label = "Add a player" onClick ={() => this._addPlayer()} />
        {playerView}
        </div>
