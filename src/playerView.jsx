@@ -26,7 +26,7 @@ export default class Player extends React.Component {
     } else {
         return (
          <div className="Player" >
-         <h1>{data.name} current hand</h1><p>is {cardView} </p>
+         <h1>{data.name} current hand is {cardView} </h1>
          <RaisedButton label = {data.name} onClick = {click}/>
          </div>
     );

@@ -17,28 +17,29 @@ export default class Table extends React.Component {
       dealer : {name: 'Dealer', cards: [], dealer: true, handValue: 0}
     };
   }
- _deal(index){
+ _deal(index, person){
+    let target = person || this.state.players[index]
+    let people = person || this.state.players[index]
     let newCard = this.state.deck.pop()
-    let people = this.state.players;
-    people[index].cards.push(newCard);
+    people.cards.push(newCard);
     this.setState({
-      players : people
+      target : people
     });
  }
 
  _initializeGame(decks) {
     
-    //Pass cards to dealer then players
-
  }
 
 _startHand() {
   //loop through this.state.players
   let people = this.state.players;
+  
   for (var i = 0; i<2; i++) {
-    _.each(people, (player, i) => {
-      this._deal(i);
+    _.each(people, (player, j) => {    
+      this._deal(j);
     });
+    this._deal(0, this.state.dealer)
   }
 }
 
