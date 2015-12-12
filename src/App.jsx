@@ -10,26 +10,29 @@ export default class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttons : []
+      players : [], // [{name : 'Player 1', cards : [], chips : 1000}]
+      dealer : {name : 'Dealer', cards : []}
+    
     };
   }
-  _addCounter() {
-    let counters = this.state.buttons;
+  _addPlayer() {
+
+    let people = this.state.players;
+
     this.setState({
-      buttons: counters.concat(this.state.buttons.length)
+      players : people.concat({name: 'Player ' + this.state.players.length, cards : [], chips : 1000, handValue : 0})
     });
   }
-
   
   render() {
-
-  let counterView = _.map(this.state.buttons, (button) => {
-    return <Card name={button} />
+    console.log(this.state.players)
+  let playerView = _.map(this.state.players, (player, i) => {
+    return <Card data={player} click = {this._addPlayer.bind(this, player.name, player.chips)} />
   })
     return (
        <div className="Table" >
-       <RaisedButton label = "Add a counter" onClick ={() => this._addCounter()} />
-       {counterView}
+       <RaisedButton label = "Add a player" onClick ={() => this._addPlayer()} />
+       {playerView}
     
        
        
