@@ -3,18 +3,31 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {RaisedButton} from 'material-ui';
 import './css/styles.css';
-import Card from './counterView.jsx';
+import Player from './counterView.jsx';
+import deckInit from './deck.jsx';
 import _ from 'lodash';
+console.log(deckInit())
 export default class Table extends React.Component {
+
 
   constructor(props) {
     super(props);
     this.state = {
+      deck : [], 
       players : [], // [{name : 'Player 1', cards : [], chips : 1000}]
       dealer : {name : 'Dealer', cards : []}
     
     };
   }
+ _deal(index){
+    let people = this.state.players;
+    people[index].cards.push(1);
+    this.setState({
+      players : people
+    });
+ }
+
+
   _addPlayer() {
 
     let people = this.state.players;
@@ -25,17 +38,13 @@ export default class Table extends React.Component {
   }
   
   render() {
-    console.log(this.state.players)
   let playerView = _.map(this.state.players, (player, i) => {
-    return <Card data={player} click = {this._addPlayer.bind(this, player.name, player.chips)} />
+    return <Player data={player} click={this._deal.bind(this, i)} />
   })
     return (
        <div className="Table" >
        <RaisedButton label = "Add a player" onClick ={() => this._addPlayer()} />
        {playerView}
-    
-       
-       
        </div>
     );
   }
