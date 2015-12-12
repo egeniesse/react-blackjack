@@ -7,13 +7,12 @@ export default class Card extends React.Component {
   constructor(props) {
     super(props);
   }
-
   
   render() {
-
+    let data = this.props.data;
     return (
        <div className="Card" >
-       <h1>hello from {data.name} with a count of  {data.count} </h1>
+       <p>{data.name + " of " + data.suit} </p>
        </div>
     );
   }
