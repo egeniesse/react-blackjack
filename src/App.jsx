@@ -19,13 +19,18 @@ export default class Table extends React.Component {
     };
   }
  _deal(index){
-    let people = this.state.players;
     let newCard = this.state.deck.pop()
+    let people = this.state.players;
     people[index].cards.push(newCard);
     this.setState({
       players : people
     });
+    console.log(this.state.players[index].cards)
  }
+  _initializeGame(decks){
+    console.log(this.state.deck)
+  }
+
 
  _initializeGame(decks) {
     console.log(this.state.deck)
@@ -53,7 +58,7 @@ export default class Table extends React.Component {
   })
     return (
        <div className="Table" >
-        <RaisedButton label = "Start Game" onClick ={() => this._initializeGame(2)} />
+       <RaisedButton label = 'Start Game' onClick = {() => this._initializeGame(2)} />
        <RaisedButton label = "Add a player" onClick ={() => this._addPlayer()} />
        {playerView}
        </div>
