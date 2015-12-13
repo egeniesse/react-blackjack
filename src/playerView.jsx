@@ -7,8 +7,8 @@ export default class Player extends React.Component {
 
   constructor(props) {
     super(props);
-  }
 
+  }
   
   render() {
     let data = this.props.data;
@@ -17,17 +17,27 @@ export default class Player extends React.Component {
     let cardView = _.map(playerCards, (card, i) => {
       return <Card data={card} />
     })
+    if (data.handValue > 21) {
+      data.isBusted = true;
+      return (
+        <div>
+          <h1> {data.name} current hand is busted </h1>
+        </div>)
+    }
 
     if (data.dealer) {
       return (
         <div className="Dealer" >
-         <h1>{data.name} current hand is {cardView} </h1>
+         <h1>{data.name} current hand is {data.handValue} </h1>
+         {cardView}
          </div>)
     } else {
         return (
          <div className="Player" >
-         <h1>{data.name} current hand is {cardView} </h1>
-         <RaisedButton label = {data.name} onClick = {click}/>
+         <h1>{data.name} current hand is {data.handValue} </h1>
+         {cardView}
+         <RaisedButton label = "Hit" onClick = {click.hit}/>
+         <RaisedButton label = "Stay" onClick = {click.stay}/>
          </div>
     );
 
